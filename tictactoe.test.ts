@@ -4,8 +4,6 @@ const { expect, test, describe, toHaveReturnedWith } = require('@jest/globals')
 
 const chromedriver = require('chromedriver')
 
-const { placePiece, initializeBoard, updateBoard, isBoardFull, xyToCell, findWInner, computerMove, checkGameOver, makeHumanMove, handleClick } = require('./tictacjs.html')
-
 const driver = new Builder().withCapabilities(Capabilities.chrome()).build()
 
 beforeAll(async () => {
@@ -23,8 +21,32 @@ test('I can start a game', async () => {
     
 })
 
-describe('functionality tests', function() {
-    test('should return symbol in cell 9', function () {
-        expect(placePiece(9)).toHaveReturnedWith('X' || "O")
-    })
-});
+test('I can click the top right box', async () => {
+    const topRightBox = await driver.findElement(By.id('cell-2'))
+    topRightBox.click()
+
+    expect(await topRightBox.getText()).toContain("X" || "O")
+
+    await driver.sleep(1500)
+})
+
+
+test('I can click the bottom right box', async () => {
+    const bottomRightBox = await driver.findElement(By.id('cell-8'))
+    bottomRightBox.click()
+
+    expect(await bottomRightBox.getText()).toContain("X" || "O")
+
+    await driver.sleep(1500)
+})
+
+test('I can click the center box', async () => {
+    const centerBox = await driver.findElement(By.id('cell-4'))
+    centerBox.click()
+
+    expect(await centerBox.getText()).toContain("X" || "O")
+
+    await driver.sleep(1500)
+})
+
+
